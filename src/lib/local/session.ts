@@ -16,6 +16,7 @@ export async function writeSession(payload: SessionPayload) {
   jar.set(SESSION_COOKIE, encodeSession(payload), {
     httpOnly: true,
     sameSite: "lax",
+    secure: process.env.VERCEL === "1",
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   })

@@ -57,7 +57,9 @@ export type Store = {
   settings: AppSettings
 }
 
-const DATA_DIR = path.join(process.cwd(), "data")
+const DATA_DIR = process.env.VERCEL
+  ? path.join("/tmp", "staff-board-data")
+  : path.join(process.cwd(), "data")
 const STORE_PATH = path.join(DATA_DIR, "store.json")
 const UPLOAD_DIR = path.join(DATA_DIR, "uploads")
 
@@ -112,8 +114,12 @@ async function readStore(): Promise<Store> {
     }
   } catch {
     const store = emptyStore()
-    await fs.mkdir(DATA_DIR, { recursive: true })
-    await fs.writeFile(STORE_PATH, JSON.stringify(store, null, 2))
+    try {
+      await fs.mkdir(DATA_DIR, { recursive: true })
+      await fs.writeFile(STORE_PATH, JSON.stringify(store, null, 2))
+    } catch {
+      // Vercel cwd is read-only; keep the seeded admin user in memory.
+    }
     return store
   }
 }

@@ -1,14 +1,19 @@
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
-import { isStaff as roleIsStaff, isAdmin as roleIsAdmin } from "@/lib/constants"
+import {
+  isStaff as roleIsStaff,
+  isAdmin as roleIsAdmin,
+  supabaseAnonKey,
+  supabaseUrl,
+} from "@/lib/constants"
 import { findUserById, toProfile } from "@/lib/local/db"
 import { isLocalMode } from "@/lib/local/mode"
 import { readSession } from "@/lib/local/session"
 import type { Profile } from "@/lib/types"
 
 export async function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const url = supabaseUrl()
+  const key = supabaseAnonKey()
   if (!url || !key) {
     throw new Error("Supabase is not configured.")
   }
@@ -41,7 +46,7 @@ export async function getSessionProfile(): Promise<Profile | null> {
     return user ? toProfile(user) : null
   }
 
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  if (!supabaseUrl() || !supabaseAnonKey()) {
     return null
   }
 

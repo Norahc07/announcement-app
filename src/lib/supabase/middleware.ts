@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
+import { supabaseAnonKey, supabaseUrl } from "@/lib/constants"
 import { isLocalMode, SESSION_COOKIE } from "@/lib/local/mode"
 import { decodeSession } from "@/lib/local/codec"
 
@@ -50,11 +51,11 @@ export async function updateSession(request: NextRequest) {
     return updateLocalSession(request)
   }
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const url = supabaseUrl()
+  const key = supabaseAnonKey()
 
   if (!url || !key) {
-    return NextResponse.next({ request })
+    return updateLocalSession(request)
   }
 
   let supabaseResponse = NextResponse.next({ request })

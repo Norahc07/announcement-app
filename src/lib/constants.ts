@@ -30,9 +30,23 @@ export function isAdmin(role: Role) {
   return role === "admin"
 }
 
+export function supabaseUrl() {
+  const raw = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+  if (!raw) return null
+  try {
+    const parsed = new URL(raw)
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null
+    return raw
+  } catch {
+    return null
+  }
+}
+
+export function supabaseAnonKey() {
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim()
+  return key || null
+}
+
 export function isSupabaseConfigured() {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )
+  return Boolean(supabaseUrl() && supabaseAnonKey())
 }
