@@ -58,7 +58,7 @@ export function AnnouncementComposer({ profile }: { profile: Profile }) {
 
     startTransition(async () => {
       const result = await createAnnouncement(formData)
-      if (result.error) {
+      if ("error" in result && result.error) {
         toast.error(result.error)
         return
       }

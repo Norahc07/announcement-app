@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 import {
   ANNOUNCEMENT_MAX_BYTES,
+  REACTIONS,
   isStaff,
 } from "@/lib/constants"
 import { assertStorageRoom } from "@/lib/actions/storage"
@@ -205,6 +206,9 @@ export async function setReaction(
   type: ReactionType | null
 ) {
   try {
+    if (type && !REACTIONS.some((item) => item.type === type)) {
+      return { error: "That reaction is not available." }
+    }
     const { profile, supabase } = await requireProfile()
 
     if (isLocalMode() || !supabase) {

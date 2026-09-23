@@ -32,7 +32,8 @@ import { fileKind } from "@/lib/drive-kind"
 import { prepareUploadFiles } from "@/lib/image-compress"
 import { formatBytes, fromNow } from "@/lib/format"
 import type { DriveFile, DriveFolder, Profile } from "@/lib/types"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import {
   Dialog,
   DialogContent,
@@ -158,7 +159,7 @@ export function FileBrowser({
       const formData = new FormData()
       files.forEach((file) => formData.append("files", file))
       const result = await uploadDriveFiles(folderId, formData)
-      if (result.error) toast.error(result.error)
+      if ("error" in result && result.error) toast.error(result.error)
       else toast.success("Uploaded. Teachers can download this anytime.")
     })
   }
@@ -295,15 +296,16 @@ export function FileBrowser({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           {folderId ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="-ml-2 mb-1"
-              render={<Link href={backHref} />}
+            <Link
+              href={backHref}
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "sm" }),
+                "-ml-2 mb-1"
+              )}
             >
               <ChevronLeft data-icon="inline-start" />
               Back to {backLabel}
-            </Button>
+            </Link>
           ) : null}
           <h1 className="font-heading text-2xl">{folderName}</h1>
           <nav className="mt-1 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">

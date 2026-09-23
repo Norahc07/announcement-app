@@ -5,7 +5,10 @@ export const APP_TAGLINE = "Announcements, calendar, and resources — without t
 
 export const REACTIONS: { type: ReactionType; label: string; emoji: string }[] = [
   { type: "like", label: "Like", emoji: "👍" },
-  { type: "heart", label: "Heart", emoji: "❤️" },
+  { type: "heart", label: "Love", emoji: "❤️" },
+  { type: "wow", label: "Wow", emoji: "😮" },
+  { type: "haha", label: "Haha", emoji: "😂" },
+  { type: "angry", label: "Angry", emoji: "😠" },
   { type: "important", label: "Important", emoji: "❗" },
 ]
 

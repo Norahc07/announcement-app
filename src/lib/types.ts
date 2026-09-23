@@ -1,6 +1,12 @@
 export type Role = "admin" | "ao" | "teacher"
 
-export type ReactionType = "like" | "heart" | "important"
+export type ReactionType =
+  | "like"
+  | "heart"
+  | "wow"
+  | "haha"
+  | "angry"
+  | "important"
 
 export type Profile = {
   id: string

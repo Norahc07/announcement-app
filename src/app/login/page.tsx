@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants"
 import { LoginForm } from "@/components/login-form"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { isLocalMode } from "@/lib/local/mode"
 import { getSessionProfile } from "@/lib/supabase/server"
 
 export const dynamic = "force-dynamic"
@@ -35,17 +34,8 @@ export default async function LoginPage() {
         <div className="px-8 py-10">
           <h2 className="font-heading text-2xl">Sign in</h2>
           <p className="mt-1 mb-6 text-sm text-muted-foreground">
-            {isLocalMode()
-              ? "Local test login is ready. Use the default admin account below."
-              : "Use the username Ma'am Lorna or the AO created for you."}
+            Sign in with the username and password given to you.
           </p>
-          {isLocalMode() ? (
-            <div className="mb-6 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:bg-amber-500/15 dark:text-amber-100">
-              Username: <strong>admin</strong>
-              <br />
-              Password: <strong>admin123</strong>
-            </div>
-          ) : null}
           <LoginForm />
         </div>
       </div>

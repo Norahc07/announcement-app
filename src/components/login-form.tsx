@@ -31,7 +31,6 @@ export function LoginForm() {
           required
           className="h-10"
           placeholder="Username"
-          defaultValue="admin"
         />
       </div>
       <div className="grid gap-1.5">
@@ -44,7 +43,6 @@ export function LoginForm() {
           required
           className="h-10"
           placeholder="Password"
-          defaultValue="admin123"
         />
       </div>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}

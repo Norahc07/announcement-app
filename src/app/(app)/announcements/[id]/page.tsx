@@ -3,9 +3,10 @@ import { notFound } from "next/navigation"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { CommentThread } from "@/components/announcements/comment-thread"
 import { PostCard } from "@/components/announcements/post-card"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { cachedAnnouncement } from "@/lib/data/cached"
 import { getSessionProfile } from "@/lib/supabase/server"
+import { cn } from "@/lib/utils"
 
 function crumbLabel(body: string) {
   const line = body.replace(/\s+/g, " ").trim()
@@ -28,15 +29,13 @@ export default async function AnnouncementPage({
   return (
     <div className="flex min-h-[calc(100vh-5.5rem)] flex-col">
       <div className="mb-5">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="-ml-2"
-          render={<Link href="/" />}
+        <Link
+          href="/"
+          className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "-ml-2")}
         >
           <ChevronLeft data-icon="inline-start" />
           Back to Bulletin
-        </Button>
+        </Link>
         <nav className="mt-1 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">
             Bulletin

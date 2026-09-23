@@ -1,6 +1,7 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { cn } from "@/lib/utils"
 
 export default function NotFound() {
   return (
@@ -12,9 +13,9 @@ export default function NotFound() {
       <p className="mt-2 max-w-sm text-sm text-muted-foreground">
         That announcement or folder may have been moved. Head back to the feed.
       </p>
-      <Button className="mt-6" render={<Link href="/" />}>
+      <Link href="/" className={cn(buttonVariants(), "mt-6")}>
         Back to bulletin
-      </Button>
+      </Link>
     </div>
   )
 }
